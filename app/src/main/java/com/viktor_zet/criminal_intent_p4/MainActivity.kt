@@ -2,6 +2,7 @@ package com.viktor_zet.criminal_intent_p4
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.viktor_zet.criminal_intent_p4.repository.CrimeRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragment_container, fragment)
                 .commit()
         }
+        CrimeRepository.initialize(this)
+
     }
 
 }
