@@ -1,4 +1,4 @@
-package com.viktor_zet.criminal_intent_p4
+package com.viktor_zet.criminal_intent_p4.model
 
 import androidx.room.*
 

@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.viktor_zet.criminal_intent_p4.model.Crime
+import com.viktor_zet.criminal_intent_p4.view_model.CrimeListViewModel
 import java.util.*
 
 private const val TAG = "CrimeListFragment"
