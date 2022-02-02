@@ -1,4 +1,4 @@
-package com.viktor_zet.criminal_intent_p4
+package com.viktor_zet.criminal_intent_p4.view_model
 
 import androidx.lifecycle.ViewModel
 import com.viktor_zet.criminal_intent_p4.repository.CrimeRepository
