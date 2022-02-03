@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.viktor_zet.criminal_intent_p4">
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false"/>
+
     <application
         android:name=".repository.CriminalIntentApplication"
         android:allowBackup="true"
