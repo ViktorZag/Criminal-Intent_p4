@@ -5,11 +5,13 @@ import androidx.room.*
 import java.util.*
 
 @Entity
-data class Crime(@PrimaryKey
+data class Crime(
+    @PrimaryKey
     val id: UUID = UUID.randomUUID(),
     var title: String = "",
     var date: Date = Date(),
-    var isSolved: Boolean = false
+    var isSolved: Boolean = false,
+    var suspect: String = ""
 ) {
 
 }
