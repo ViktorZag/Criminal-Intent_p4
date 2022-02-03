@@ -49,15 +49,20 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
 
     private val crimeDetailViewModel: CrimeDetailViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        crime = Crime()
-        val crimeId: UUID = arguments?.getSerializable(ARG_CRIME_ID) as UUID
-        crimeDetailViewModel.loadCrime(crimeId)
+    private fun updateUI() {
+        titleField.setText(crime.title)
+        dateButton.text = crime.date.toString()
+        solvedCheckBox.apply {
+            isChecked = crime.isSolved
+            jumpDrawablesToCurrentState()
+        }
+        if (crime.suspect.isNotEmpty()) {
+            suspectButton.setText(crime.suspect)
+        }
+        updatePhotoView()
     }
 
     companion object {
-
         fun newInstance(crimeId: UUID): CrimeFragment {
             val args = Bundle().apply {
                 putSerializable(ARG_CRIME_ID, crimeId)
@@ -66,6 +71,13 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
                 arguments = args
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        crime = Crime()
+        val crimeId: UUID = arguments?.getSerializable(ARG_CRIME_ID) as UUID
+        crimeDetailViewModel.loadCrime(crimeId)
     }
 
     override fun onCreateView(
@@ -99,18 +111,6 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
                     updateUI()
                 }
             })
-    }
-
-    private fun updateUI() {
-        titleField.setText(crime.title)
-        dateButton.text = crime.date.toString()
-        solvedCheckBox.apply {
-            isChecked = crime.isSolved
-            jumpDrawablesToCurrentState()
-        }
-        if (crime.suspect.isNotEmpty()) {
-            suspectButton.setText(crime.suspect)
-        }
     }
 
     private fun getCrimeReport(): String {
@@ -193,12 +193,6 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             setOnClickListener {
                 startActivityForResult(pickContactIntent, REQUEST_CONTACT)
             }
-            val packageManager: PackageManager = requireActivity().packageManager
-            val resolvedActivity: ResolveInfo? =
-                packageManager.resolveActivity(
-                    pickContactIntent,
-                    PackageManager.MATCH_DEFAULT_ONLY
-                )
         }
         photoButton.apply {
             val packageManager: PackageManager = requireActivity().packageManager
@@ -266,4 +260,14 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             }
         }
     }
+
+    private fun updatePhotoView() {
+        if (photoFile.exists()) {
+            val bitmap = getScaledBitmap(photoFile.path, requireActivity())
+            photoView.setImageBitmap(bitmap)
+        } else {
+            photoView.setImageDrawable(null)
+        }
+    }
+
 }
